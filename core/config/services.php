@@ -52,7 +52,7 @@ $di->set('dispatcher', function() use ($di) {
                 );
                 return false;
         }
-    });
+    }, true);
     
     $dispatcher = new PhDispatcher();
     $dispatcher->setEventsManager($evManager);

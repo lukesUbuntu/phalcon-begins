@@ -19,4 +19,10 @@ class IndexController extends \Core\Controllers\ControllerBase
     }// indexAction
 
 
+    public function page2Action()
+    {
+        
+    }// page2Action
+
+
 }
