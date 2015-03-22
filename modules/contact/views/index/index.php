@@ -7,5 +7,7 @@
 <br><br>
 
 <?php echo $this->tag->linkTo('contact/index/page2', 'Link contact page 2.'); ?><br>
-<?php echo $this->tag->linkTo('not-found-page', 'Link to not found page.'); ?><br>
+<?php echo $this->tag->linkTo('not-found-page', 'Link to not found module.'); ?><br>
+<?php echo $this->tag->linkTo('contact/not-found-controller', 'Link to not found controller in this module.'); ?><br>
+<?php echo $this->tag->linkTo('contact/not-found-controller/not-found-action', 'Link to not found controller and action in this module.'); ?><br>
 <?php echo $this->tag->linkTo('contact/index/not-found-action', 'Link to not found action on this controller.'); ?><br>
