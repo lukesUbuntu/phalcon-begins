@@ -43,10 +43,29 @@ class Module implements ModuleDefinitionInterface
     public function registerServices($di)
     {
         $config = include APPFULLPATH.'/config/config.php';
-        $dispatcher = $di->getShared('dispatcher');
+        //$dispatcher = $di->getShared('dispatcher');
 
         // Registering a dispatcher
-        $di->set('dispatcher', function() use($di, $dispatcher) {
+        $di->set('dispatcher', function() use($di) {
+            $evManager = $di->getShared('eventsManager');
+
+            $evManager->attach('dispatch:beforeException', function($event, $dispatcher, $exception) {
+                switch ($exception->getCode()) {
+                    case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                    case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                        $dispatcher->forward(
+                            array(
+                                'namespace' => 'Core\\Controllers',
+                                'module' => 'core',
+                                'controller' => 'error',
+                                'action' => 'e404',
+                            )
+                        );
+                        return false;
+                }
+            }, true);
+            $dispatcher = new Dispatcher;
+            $dispatcher->setEventsManager($evManager);
             $dispatcher->setDefaultNamespace("Core\\Controllers");
             return $dispatcher;
         });

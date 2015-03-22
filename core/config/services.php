@@ -45,6 +45,7 @@ $di->set('dispatcher', function() use ($di) {
             case PhDispatcher::EXCEPTION_ACTION_NOT_FOUND:
                 $dispatcher->forward(
                     array(
+                        'namespace' => 'Core\\Controllers',
                         'module' => 'core',
                         'controller' => 'error',
                         'action' => 'e404',
