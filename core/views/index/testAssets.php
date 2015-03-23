@@ -7,3 +7,4 @@ if ($this->assets->collection('header')->count()) {
 
 $this->assets->outputJs('footer');
 ?>
+<p>This page use PHP template.</p>

@@ -10,3 +10,4 @@ Volt's <code>url()</code>: {{url('begins-inserted-url', ['q1': 'val1', 'q2': 'va
 <br>
 
 {{linkTo('/', 'Go gome')}}<br>
+<p>This page use Volt template.</p>

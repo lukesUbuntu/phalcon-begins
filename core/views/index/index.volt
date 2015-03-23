@@ -25,3 +25,4 @@
 
 {{link_to('contact', 'Go to contact module')}}<br>
 
+<p>This page use Volt template.</p>

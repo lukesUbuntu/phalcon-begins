@@ -53,16 +53,13 @@ class ControllerBase extends Controller
             }
             
             if (!isset($no_redirect) || (isset($no_redirect) && $no_redirect === false)) {
-                // get default language in config
-                //$config = $this->di->getShared('config');
-                //$current_lang = $config->language->defaultLang;
-                $this->response->redirect(/*$current_lang.*/$this->router->getRewriteUri());
+                $this->response->redirect($this->router->getRewriteUri());
                 unset($config, $current_lang);
             }
         }
         unset($matched_lang, $no_redirect, $no_redirect_exts, $url_exp);
         // end redirect to current url with language prefix ------------------------------------
-    }// onConstruct
+    }// beforeExecuteRoute
 
 
 }

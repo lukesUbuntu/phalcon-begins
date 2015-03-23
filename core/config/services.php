@@ -35,59 +35,9 @@ $di->set('router', function() {
     return $router;
 });
 
-// set dispatcher
-$di->set('dispatcher', function() use ($di) {
-    $evManager = $di->getShared('eventsManager');
-
-    $evManager->attach('dispatch:beforeException', function($event, $dispatcher, $exception) {
-        switch ($exception->getCode()) {
-            case PhDispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-            case PhDispatcher::EXCEPTION_ACTION_NOT_FOUND:
-                $dispatcher->forward(
-                    array(
-                        'namespace' => 'Core\\Controllers',
-                        'module' => 'core',
-                        'controller' => 'error',
-                        'action' => 'e404',
-                    )
-                );
-                return false;
-        }
-    }, true);
-    
-    $dispatcher = new PhDispatcher();
-    $dispatcher->setEventsManager($evManager);
-    //$dispatcher->setDefaultNamespace('Core\\Controllers');
-    return $dispatcher;
-}, true);
-
 /**
- * Setting up the view component
+ * For more services that want to register, please use /core/Extend/ModulesTrait.php instead.
  */
-$di->set('view', function () use ($config) {
-
-    $view = new View();
-
-    $view->setViewsDir($config->application->viewsDir);
-
-    $view->registerEngines(array(
-        '.volt' => function ($view, $di) use ($config) {
-
-            $volt = new VoltEngine($view, $di);
-
-            $volt->setOptions(array(
-                'compiledPath' => $config->application->cacheDir,
-                'compiledSeparator' => '_'
-            ));
-
-            return $volt;
-        },
-        '.phtml' => 'Phalcon\Mvc\View\Engine\Php',
-        '.php' => 'Phalcon\Mvc\View\Engine\Php',
-    ));
-
-    return $view;
-}, true);
 
 /**
  * Database connection is created based in the parameters defined in the configuration file
