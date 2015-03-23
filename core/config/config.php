@@ -32,6 +32,13 @@ $config_object = new \Phalcon\Config(array(
             'th' => array('name' => 'ไทย', 'locale' => 'th'),
         ),
         'fallbackLang' => 'en',
+    ),
+    'session' => array(
+        'sessionPrefix' => 'phalconbegins',
+    ),
+    'cookies' => array(
+        'cryptKey' => '$#19AdB+?gHk(_pI',// 16, 24, 32 characters
+        'prefix' => 'phalconbegins_',
     )
 ));
 

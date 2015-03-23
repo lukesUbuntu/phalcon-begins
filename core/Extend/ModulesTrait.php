@@ -33,6 +33,7 @@ trait ModulesTrait
      */
     public function registerServices($di)
     {
+        // get module caller class to retrieve data-----------
         $module_caller_name = get_called_class();
         $module_caller = new $module_caller_name;
         if (property_exists($module_caller, 'controller_namespace')) {
@@ -46,6 +47,7 @@ trait ModulesTrait
             $module_full_path = $this->default_module_full_path;
         }
         unset($module_caller_name);
+        // end get module caller class ---------------------------
         
         $config = include APPFULLPATH.'/config/config.php';
         
@@ -95,6 +97,8 @@ trait ModulesTrait
             ));
             return $view;
         });
+        
+        unset($default_namespace, $module_full_path);
     }// registerServices
 
 

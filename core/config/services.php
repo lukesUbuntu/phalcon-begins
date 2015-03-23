@@ -4,9 +4,7 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Mvc\View;
 use Extend\Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
-use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Mvc\Dispatcher as PhDispatcher;
 
 /**
@@ -59,12 +57,28 @@ $di->set('modelsMetadata', function () {
     return new MetaDataAdapter();
 });
 
-/**
- * Start the session the first time some component request the session service
- */
-$di->set('session', function () {
-    $session = new SessionAdapter();
+// Start the session the first time some component request the session service
+$di->set('session', function () use ($config) {
+    $session = new \Phalcon\Session\Adapter\Files(
+        array(
+            'uniqueId' => $config->session->sessionPrefix
+        )
+    );
     $session->start();
 
     return $session;
+});
+
+// start cookies
+$di->set('cookies', function() {
+    $cookies = new Extend\Phalcon\Http\Response\Cookies();
+    $cookies->useEncryption(true);
+    return $cookies;
+});
+
+// set crypt key. this key also use with cookies.
+$di->set('crypt', function() use ($config) {
+    $crypt = new \Phalcon\Crypt();
+    $crypt->setKey($config->cookies->cryptKey);
+    return $crypt;
 });

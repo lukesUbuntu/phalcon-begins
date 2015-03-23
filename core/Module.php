@@ -3,7 +3,6 @@
  * 
  * @author Vee W.
  * @license http://opensource.org/licenses/MIT
- * @todo [phalconbegins][multi modules] find the way to use common register services.
  * 
  */
 

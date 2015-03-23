@@ -14,6 +14,10 @@
 
 {{link_to('index/testPagination', 'Test pagination')}}<br>
 
+{{link_to('index/testSession', 'Test session')}}<br>
+
+{{link_to('index/testCookie', 'Test cookie')}}<br>
+
 <hr>
 
 <h3>Test language translation</h3>

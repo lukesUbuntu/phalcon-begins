@@ -26,6 +26,23 @@ class IndexController extends \Core\Controllers\ControllerBase
     }// testAssetsAction
 
 
+    public function testCookieAction($action = '')
+    {
+        // @todo [phalconbegins] add prefix to cookies.
+        if ($action == 'set') {
+            $this->cookies->set('datetime', date('Y-m-d H:i:s'), time()+15*86400);
+        } elseif ($action == 'get') {
+            $this->view->setVar('datetime', $this->cookies->get('datetime')->getValue());
+            $this->cookies->delete('datetime');
+            $this->view->setVar('datetime2', $this->cookies->get('datetime')->getValue());
+        } elseif ($action == 'remove') {
+            $this->cookies->remove('datetime');
+        }
+        
+        $this->view->setVar('action', $action);
+    }// testCookieAction
+
+
     public function testGenUrlAction()
     {
         $output['get_base_uri'] = $this->url->getBaseUri();
@@ -112,6 +129,24 @@ class IndexController extends \Core\Controllers\ControllerBase
     {
         $this->response->redirect('redirect2-that-was-not-found');
     }// testRedirectAction
+
+
+    public function testSessionAction($action = '')
+    {
+        if ($action == 'set') {
+            $this->session->set('datetime', date('Y-m-d H:i:s'));
+            $this->session->set('test', 'AaAaAaAaBbBbBbBb');
+        } elseif ($action == 'get') {
+            $this->view->setVar('session_datetime', $this->session->get('datetime'));
+            $this->view->setVar('session_test', $this->session->get('test'));
+        } elseif ($action == 'remove') {
+            $this->session->remove('datetime');
+        } elseif ($action == 'destroy') {
+            $this->session->destroy();
+        }
+        
+        $this->view->setVar('action', $action);
+    }// testSessionAction
 
 }
 
