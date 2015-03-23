@@ -8,21 +8,8 @@ class ControllerBase extends Controller
 {
 
 
-    private $lang;
+    public $lang;
     private $lang_loaded;
-
-
-    /**
-     * get the translated language from language array key.
-     * 
-     * @param string $message language array key
-     * @param array $params replacable array key => value
-     * @return string translated string
-     */
-    protected function langGet($message = '', $params = null)
-    {
-        return $this->lang->_($message, $params);
-    }// langGet
 
 
     /**
@@ -31,56 +18,19 @@ class ControllerBase extends Controller
      * @global object $config global configuration
      * @param string $lang_file the language file
      */
-    protected function langLoad($lang_file = '')
+    protected  function langLoad($lang_file = '')
     {
-        global $config;
-        
-        // get current language
-        $lang_uri = $this->dispatcher->getParam('lang');
-        if ($lang_uri == null) {
-            $lang_uri = $config->language->fallbackLang;
-        }
-        
-        // get language dir and translated file.
-        if (strpos($lang_file, '::') === false) {
-            $language_path = $config->application->languageDir;
-        } else {
-            $lang_exp = explode('::', $lang_file);
-            $module_name = $lang_exp[0];
-            $lang_file = $lang_exp[1];
-            if ($module_name == 'core') {
-                $language_path = $config->application->languageDir;
-            } else {
-                $language_path = MODULEFULLPATH.'/'.$module_name.'/language/';
-            }
-            
-            unset($lang_exp, $module_name);
-        }
-        
-        if (file_exists($language_path.$lang_uri.'/'.$lang_file.'.php')) {
-            require $language_path.$lang_uri.'/'.$lang_file.'.php';
-        } else {
-            require $language_path.$config->language->fallbackLang.'/'.$lang_file.'.php';
-        }
-        
-        // load messages into array before call to translate adapter.
-        if (isset($messages)) {
-            if (empty($this->lang_loaded)) {
-                $this->lang_loaded = $messages;
-            } else {
-                $this->lang_loaded = array_merge($this->lang_loaded, $messages);
-            }
-        }
-        
-        // get language content
-        $translate = new \Phalcon\Translate\Adapter\NativeArray(array(
-            'content' => $this->lang_loaded
-        ));
-        
+        $lang = new \Libraries\Lang();
+        // set things in language class
+        $lang->dispatcher = $this->dispatcher;
+        $lang->setLoaded($this->lang_loaded);
+        // load language file.
+        $translate = $lang->load($lang_file);
+        // set properties for use in controllers.
+        $this->lang_loaded = $lang->getLoaded();
         $this->view->setVar('t', $translate);
-        $this->lang = $translate;
-        
-        unset($lang_file, $lang_uri, $language_path, $translate);
+        $this->lang = $lang;
+        unset($lang, $translate);
     }// langLoad
 
 

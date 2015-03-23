@@ -49,6 +49,11 @@ class IndexController extends \Core\Controllers\ControllerBase
         echo " or <br>\n";
         echo \Phalcon\Tag::linkTo('link-to-not-exists', 'go to somewhere else that doesn\'t exists.')."<br>\n";
         echo \Phalcon\Tag::linkTo('index/action-not-exists', 'go to this controller that action doesn\'t exists.')."<br>\n";
+        echo "<hr>\n";
+        
+        echo 'Test language:'."<br>\n";
+        $this->langLoad('index');
+        echo $this->lang->get('index_welcome')."<br>\n";
     }// testLinkAction
 
 
