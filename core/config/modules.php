@@ -1,6 +1,6 @@
 <?php
 
-// @todo [phalconbegins] register modules here.
+// @todo [phalconbegins][multi modules] register modules here.
 // register modules -------------------------------------------------------------------------
 $application->registerModules(
     array(

@@ -57,15 +57,8 @@ $di->set('dispatcher', function() use ($di) {
     
     $dispatcher = new PhDispatcher();
     $dispatcher->setEventsManager($evManager);
-    $dispatcher->setDefaultNamespace('Core\\Controllers');
+    //$dispatcher->setDefaultNamespace('Core\\Controllers');
     return $dispatcher;
-}, true);
-
-// set tag class that extended to use in controller
-$di->set('tag', function() {
-    $tag = new \Extend\Phalcon\Tag();
-    
-    return $tag;
 }, true);
 
 /**

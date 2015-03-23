@@ -1,8 +1,8 @@
 <?php
 /* 
  * 
- *  @author Vee W.
- *  @license http://opensource.org/licenses/MIT
+ * @author Vee W.
+ * @license http://opensource.org/licenses/MIT
  * 
  */
 
@@ -60,7 +60,7 @@ $router->add(
 // end modules router ----------------------------------------------------------
 
 // the line below this should stay at the bottom. 
-// @todo [phalconbegins] add module router here. -------------------------
+// @todo [phalconbegins][multi modules] add module router here. -------------------------
 
 
 

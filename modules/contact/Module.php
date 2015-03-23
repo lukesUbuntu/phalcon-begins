@@ -1,8 +1,9 @@
 <?php
 /* 
  * 
- *  @author Vee W.
- *  @license http://opensource.org/licenses/MIT
+ * @author Vee W.
+ * @license http://opensource.org/licenses/MIT
+ * @todo [phalconbegins][multi modules] find the way to use common register services.
  * 
  */
 
@@ -44,7 +45,6 @@ class Module implements ModuleDefinitionInterface
     public function registerServices($di)
     {
         $config = include APPFULLPATH.'/config/config.php';
-        //$dispatcher = $di->getShared('dispatcher');
 
         // Registering a dispatcher
         $di->set('dispatcher', function() use ($di) {

@@ -44,5 +44,18 @@ try {
     echo $application->handle()->getContent();
 
 } catch (\Exception $e) {
-    echo $e->getMessage();
+    if (preg_match('/Module (.*) is not registered/ius', $e->getMessage()) == 1) {
+        // catched module is not registered error!
+        // @todo [phalconbegins][multi modules] find the way to use error controller.
+        header('HTTP/1.0 404 Not Found');
+        echo 'not found';
+        exit;
+    }
+    
+    // another error!
+    echo get_class($e), ": ", $e->getMessage(), "<br>\n";
+    echo " File=", $e->getFile(), "<br>\n";
+    echo " Line=", $e->getLine(), "<br>\n";
+    echo "<br>\n";
+    echo nl2br($e->getTraceAsString());
 }
