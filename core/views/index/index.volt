@@ -18,6 +18,10 @@
 
 {{link_to('index/testCookie', 'Test cookie')}}<br>
 
+{{link_to('index/testLog', 'Test logger')}}<br>
+
+{{link_to('index/testCache', 'Test cache')}}<br>
+
 <hr>
 
 <h3>Test language translation</h3>

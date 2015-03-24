@@ -84,9 +84,13 @@ trait ModulesTrait
                 '.volt' => function ($view, $di) use ($config) {
 
                     $volt = new Volt($view, $di);
+                    
+                    if (!file_exists($config->application->cacheDir.'volt/')) {
+                        mkdir($config->application->cacheDir.'volt/');
+                    }
 
                     $volt->setOptions(array(
-                        'compiledPath' => $config->application->cacheDir,
+                        'compiledPath' => $config->application->cacheDir.'volt/',
                         'compiledSeparator' => '_'
                     ));
 

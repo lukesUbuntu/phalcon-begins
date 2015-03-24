@@ -14,6 +14,7 @@ $config_object = new \Phalcon\Config(array(
         'password' => 'pass',
         'dbname' => 'v_phalconbegins',
         'charset' => 'utf8',
+        'tablePrefix' => 'ws_',
     ),
     'application' => array(
         'controllersDir' => APPFULLPATH . '/controllers/',
@@ -22,6 +23,7 @@ $config_object = new \Phalcon\Config(array(
         'libraryDir' => APPFULLPATH . '/Libraries/',
         'extendDir' => APPFULLPATH . '/Extend/',
         'cacheDir' => APPFULLPATH . '/cache/',
+        'logDir' => APPFULLPATH . '/logs/',
         'languageDir' => APPFULLPATH.'/language/',
         'baseUri' => $auto_base_uri,
     ),

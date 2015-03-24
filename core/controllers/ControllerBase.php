@@ -8,7 +8,6 @@ class ControllerBase extends Controller
 {
 
 
-    public $lang;
     private $lang_loaded;
 
 
@@ -29,7 +28,6 @@ class ControllerBase extends Controller
         // set properties for use in controllers.
         $this->lang_loaded = $lang->getLoaded();
         $this->view->setVar('t', $translate);
-        $this->lang = $lang;
         unset($lang, $translate);
     }// langLoad
 

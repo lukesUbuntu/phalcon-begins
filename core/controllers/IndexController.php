@@ -26,6 +26,40 @@ class IndexController extends \Core\Controllers\ControllerBase
     }// testAssetsAction
 
 
+    public function testCacheAction($action = '')
+    {
+        $frontCache = new \Phalcon\Cache\Frontend\Data(array(
+            'lifetime' => 86400// 1 day = 86400
+        ));
+        
+        $output = array();
+        $config = $this->_dependencyInjector->getShared('config');
+        
+        $cache = new \Extend\Phalcon\Cache\Backend\File($frontCache, array(
+            'cacheDir' => $config->application->cacheDir.'cache/'
+        ));
+        
+        $cache_key = 'testcache.cache';
+        if ($action == 'remove') {
+            $cache->delete($cache_key);
+            $output['cache_remove'] = true;
+        } else {
+            $cache_content = $cache->get($cache_key);
+            
+            if ($cache_content === null) {
+                $output['content'] = 'This content was generated on date '.date('Y-m-d H:i:s');
+                $cache->save($cache_key, $output['content']);
+            } else {
+                $output['cached_content'] = $cache_content;
+            }
+        }
+        
+        $this->view->setVars($output);
+        
+        unset($cache, $config, $frontCache);
+    }// testCacheAction
+
+
     public function testCookieAction($action = '')
     {
         // @todo [phalconbegins] add prefix to cookies.
@@ -72,6 +106,13 @@ class IndexController extends \Core\Controllers\ControllerBase
         $this->langLoad('index');
         echo $this->lang->get('index_welcome')."<br>\n";
     }// testLinkAction
+
+
+    public function testLogAction()
+    {
+        $this->loggerFile->debug('Test debug log.');
+        $this->loggerFile->error('Test error log.');
+    }// testLogAction
 
 
     public function testPaginationAction()

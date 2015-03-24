@@ -6,6 +6,7 @@ use Extend\Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\Dispatcher as PhDispatcher;
+use Phalcon\Logger\Adapter\File as LoggerFile;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -57,15 +58,26 @@ $di->set('modelsMetadata', function () {
     return new MetaDataAdapter();
 });
 
+$di->set('loggerFile', function() use ($config) {
+    if (!file_exists($config->application->logDir.date('Y-m-d'))) {
+        mkdir($config->application->logDir.date('Y-m-d'));
+    }
+    return new LoggerFile($config->application->logDir.date('Y-m-d').'/application.log');
+});
+
 // Start the session the first time some component request the session service
-$di->set('session', function () use ($config) {
-    $session = new \Phalcon\Session\Adapter\Files(
+$di->set('session', function () use ($config, $di) {
+    $db = $di->getShared('db');
+    $session = new \Extend\Phalcon\Session\Adapter\Database(
         array(
+            'db' => $db,
+            'table' => $config->database->tablePrefix.'session_data',
             'uniqueId' => $config->session->sessionPrefix
         )
     );
     $session->start();
 
+    unset($db);
     return $session;
 });
 

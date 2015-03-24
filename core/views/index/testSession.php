@@ -15,7 +15,7 @@
     <?php if (isset($action) && $action == 'set') { ?> 
     You have been set the session.
     <?php } elseif (isset($action) && $action == 'get') { ?> 
-    You got the session.
+    Session value is.
     <br>
     <?php
     if (isset($session_datetime)) {

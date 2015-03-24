@@ -12,7 +12,7 @@
 <?php if (isset($action) && $action == 'set') { ?> 
 The cookie was set.
 <?php } elseif (isset($action) && $action == 'get') { ?> 
-The cookie is already got.<br>
+The cookie value is.<br>
 <?php 
 if (isset($datetime)) {
     echo $datetime."<br>\n";

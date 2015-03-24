@@ -6,7 +6,9 @@
 
 <p>This contact/index page use php template.</p>
 
-<?php echo $this->tag->linkTo('contact/index/page2', 'Link contact page 2.'); ?><br><br>
+<?php echo $this->tag->linkTo('contact/index/page2', 'Link contact page 2.'); ?><br>
+<?php echo $this->tag->linkTo('contact/controller2', 'Link contact controller 2.'); ?><br>
+<br>
 <?php echo $this->tag->linkTo('not-found-page', 'Link to not found module.'); ?><br>
 <?php echo $this->tag->linkTo('contact/not-found-controller', 'Link to not found controller in this module.'); ?><br>
 <?php echo $this->tag->linkTo('contact/not-found-controller/not-found-action', 'Link to not found controller and action in this module.'); ?><br>

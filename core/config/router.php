@@ -60,7 +60,7 @@ $router->add(
 // end modules router ----------------------------------------------------------
 
 // the line below this should stay at the bottom. 
-// @todo [phalconbegins][multi modules] add module router here. -------------------------
+// @todo [phalconbegins][multi modules] add module router here. -------
 
 
 
