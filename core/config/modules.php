@@ -11,7 +11,11 @@ $application->registerModules(
         'contact' => array(
             'className' => 'Modules\\Contact\\Module',
             'path' => ROOTFULLPATH . '/modules/contact/Module.php',
-        )
+        ),
+        'dbt' => array(
+            'className' => 'Modules\\Dbt\\Module',
+            'path' => ROOTFULLPATH . '/modules/dbt/Module.php',
+        ),
     )
 );
 // end register modules --------------------------------------------------------------------

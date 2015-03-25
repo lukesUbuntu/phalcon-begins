@@ -32,5 +32,6 @@
 <hr>
 
 {{link_to('contact', 'Go to contact module')}}<br>
+{{link_to('dbt', 'Go to database test')}}<br>
 
 <p>This page use Volt template.</p>

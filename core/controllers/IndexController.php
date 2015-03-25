@@ -62,7 +62,6 @@ class IndexController extends \Core\Controllers\ControllerBase
 
     public function testCookieAction($action = '')
     {
-        // @todo [phalconbegins] add prefix to cookies.
         if ($action == 'set') {
             $this->cookies->set('datetime', date('Y-m-d H:i:s'), time()+15*86400);
         } elseif ($action == 'get') {

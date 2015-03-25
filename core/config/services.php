@@ -47,7 +47,7 @@ $di->set('db', function () use ($config) {
         'username' => $config->database->username,
         'password' => $config->database->password,
         'dbname' => $config->database->dbname,
-        'charset' => $config->database->charset
+        'charset' => $config->database->charset,
     ));
 });
 
@@ -94,3 +94,10 @@ $di->set('crypt', function() use ($config) {
     $crypt->setKey($config->cookies->cryptKey);
     return $crypt;
 });
+
+// set security component
+$di->set('security', function() use ($config) {
+    $security = new Phalcon\Security();
+    $security->setWorkFactor($config->security->hashFactor);
+    return $security;
+}, true);

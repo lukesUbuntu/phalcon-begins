@@ -25,7 +25,7 @@ trait ModulesTrait
 
 
     protected $default_controller_namespace = 'Core\\Controllers';
-    protected $default_module_full_path = APPFULLPATH.'/core';
+    protected $default_module_full_path = APPFULLPATH;
 
 
     /**
@@ -80,6 +80,9 @@ trait ModulesTrait
         $di->set('view', function() use ($config, $module_full_path) {
             $view = new View();
             $view->setViewsDir($module_full_path.'/views/');
+            if ($module_full_path != $this->default_module_full_path) {
+                $view->setMainView('../../../core/views/index');
+            }
             $view->registerEngines(array(
                 '.volt' => function ($view, $di) use ($config) {
 
